@@ -1,11 +1,22 @@
-﻿namespace SerializatorApplication.Characters
+﻿using SerializatorApplication.Interfaces;
+
+namespace SerializatorApplication.Characters
 {
-    public class Berserker : SwordMan
+    public class Berserker : SwordMan, IHuman
     {
-        public Berserker(string name, uint hp, uint dmg, uint strength, uint vamp) : base(name, hp, dmg, strength)
-        {
-            Vampirism = vamp;
-        }
         public uint Vampirism { get; set; }
+
+        public override List<string> stats()
+        {
+            return new List<string>
+            {
+                $"Name: {Name}",
+                $"Hp: {Hp}",
+                $"Dmg: {Dmg}",
+                $"Str: {Strength}",
+                $"Vamp: {Vampirism}",
+                $"Dmg Type: {DamageType}"
+            };
+        }
     }
 }

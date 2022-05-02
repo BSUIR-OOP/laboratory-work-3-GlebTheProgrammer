@@ -1,11 +1,22 @@
-﻿namespace SerializatorApplication.Characters
+﻿using SerializatorApplication.Interfaces;
+
+namespace SerializatorApplication.Characters
 {
     public class Tank : SwordMan
     {
-        public Tank(string name, uint hp, uint dmg, uint strength, uint def) : base(name, hp, dmg, strength)
-        {
-            Defence = def;
-        }
         public uint Defence { get; set; }
+
+        public override List<string> stats()
+        {
+            return new List<string>
+            {
+                $"Name: {Name}",
+                $"Hp: {Hp}",
+                $"Dmg: {Dmg}",
+                $"Str: {Strength}",
+                $"Def: {Defence}",
+                $"Dmg Type: {DamageType}"
+            };
+        }
     }
 }

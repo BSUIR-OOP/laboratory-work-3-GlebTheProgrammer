@@ -2,11 +2,19 @@
 {
     public class Mage : Human
     {
-        public Mage(string name, uint hp, uint dmg, uint intelligence) : base(name, hp, dmg)
-        {
-            Intelligence = intelligence;
-        }
         public uint Intelligence { get; set; }
         public DamageType DamageType { get; set; } = DamageType.Magic;
+
+        public override List<string> stats()
+        {
+            return new List<string>
+            {
+                $"Name: {Name}",
+                $"Hp: {Hp}",
+                $"Dmg: {Dmg}",
+                $"Intel: {Intelligence}",
+                $"Dmg Type: {DamageType}"
+            };
+        }
     }
 }

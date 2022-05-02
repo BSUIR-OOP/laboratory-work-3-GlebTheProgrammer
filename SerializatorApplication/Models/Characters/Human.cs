@@ -1,4 +1,6 @@
-﻿namespace SerializatorApplication.Characters
+﻿using SerializatorApplication.Interfaces;
+
+namespace SerializatorApplication.Characters
 {
     public enum DamageType
     {
@@ -12,16 +14,21 @@
         Ice
     }
 
-    public class Human
+    public class Human : IHuman
     {
-        public Human(string name, uint hp, uint dmg)
-        {
-            Name = name;
-            Hp = hp;
-            Dmg = dmg;
-        }
         public string Name { get; set; }
         public uint Hp { get; set; }
         public uint Dmg { get; set; }
+
+        public virtual List<string> stats()
+        {
+            return new List<string>
+            {
+                $"Name: {Name}",
+                $"Hp: {Hp}",
+                $"Dmg: {Dmg}",
+                $"Dmg Type: None"
+            };
+        }
     }
 }
