@@ -1,0 +1,6 @@
+SwordMan
+Name:Olga Valentine
+Hp:757
+Dmg:85
+Strength:15
+DamageType:Physical

@@ -1,0 +1,7 @@
+Tank
+Defence:5
+Strength:53
+DamageType:Physical
+Name:Harlan Fischer
+Hp:304
+Dmg:44

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using Newtonsoft.Json.Linq;
 using SerializatorApplication.Characters;
+using SerializatorApplication.CustomServices;
 using SerializatorApplication.Interfaces;
 using SerializatorApplication.Models;
 using System.Diagnostics;
@@ -183,68 +184,88 @@ namespace SerializatorApplication.Controllers
 
         public IActionResult Serialize()
         {
-            var data = new Data();
+            //var data = new Data();
+            //foreach (var character in characters)
+            //{
+            //    var characterClass = character.GetType().Name;
+            //    if (characterClass == "Berserker")
+            //        data.berserkers.Add((Berserker)character);
+            //    if (characterClass == "SwordMan")
+            //        data.swordMen.Add((SwordMan)character);
+            //    if (characterClass == "Tank")
+            //        data.tanks.Add((Tank)character);
+            //    if (characterClass == "Mage")
+            //        data.mages.Add((Mage)character);
+            //    if (characterClass == "FireWizard")
+            //        data.fireWizards.Add((FireWizard)character);
+            //    if (characterClass == "IceWizard")
+            //        data.iceWizards.Add((IceWizard)character);
+            //}
+
+            //using (MemoryStream ms = new MemoryStream())
+            //using (BsonDataWriter datawriter = new BsonDataWriter(ms))
+            //{
+            //    JsonSerializer serializer = new JsonSerializer();
+            //    serializer.Serialize(datawriter, data);
+            //    var str = Convert.ToBase64String(ms.ToArray());
+
+            //    using (StreamWriter writetext = new StreamWriter("BsonData.txt"))
+            //    {
+            //        writetext.Write(str);
+            //    }
+            //}
+            //return RedirectToAction("Index");
+            int charactersCounter = 1;
             foreach (var character in characters)
             {
-                var characterClass = character.GetType().Name;
-                if (characterClass == "Berserker")
-                    data.berserkers.Add((Berserker)character);
-                if (characterClass == "SwordMan")
-                    data.swordMen.Add((SwordMan)character);
-                if (characterClass == "Tank")
-                    data.tanks.Add((Tank)character);
-                if (characterClass == "Mage")
-                    data.mages.Add((Mage)character);
-                if (characterClass == "FireWizard")
-                    data.fireWizards.Add((FireWizard)character);
-                if (characterClass == "IceWizard")
-                    data.iceWizards.Add((IceWizard)character);
+                CustomSerializerContainer customSerializerContainer = new CustomSerializerContainer($"CharactersData/BsonCharacterData{charactersCounter}.txt");
+                customSerializerContainer.CustomSerialize(character.GetType(), character);
+                charactersCounter++;
             }
 
-            using (MemoryStream ms = new MemoryStream())
-            using (BsonDataWriter datawriter = new BsonDataWriter(ms))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(datawriter, data);
-                var str = Convert.ToBase64String(ms.ToArray());
-
-                using (StreamWriter writetext = new StreamWriter("BsonData.txt"))
-                {
-                    writetext.Write(str);
-                }
-            }
             return RedirectToAction("Index");
         }
 
         public IActionResult Deserialize()
         {
-            string str = string.Empty;
-            using (StreamReader readtext = new StreamReader("BsonData.txt"))
+            //string str = string.Empty;
+            //using (StreamReader readtext = new StreamReader("BsonData.txt"))
+            //{
+            //    str = readtext.ReadLine();
+            //}
+
+            //byte[] data = Convert.FromBase64String(str);
+
+            //using (MemoryStream ms = new MemoryStream(data))
+            //using (BsonDataReader reader = new BsonDataReader(ms))
+            //{
+            //    JsonSerializer serializer = new JsonSerializer();
+            //    var info = serializer.Deserialize<Data>(reader);
+
+            //    characters = new List<Human>();
+            //    foreach (var character in info.berserkers)
+            //        characters.Add(character);
+            //    foreach (var character in info.swordMen)
+            //        characters.Add(character);
+            //    foreach (var character in info.tanks)
+            //        characters.Add(character);
+            //    foreach (var character in info.mages)
+            //        characters.Add(character);
+            //    foreach (var character in info.fireWizards)
+            //        characters.Add(character);
+            //    foreach (var character in info.iceWizards)
+            //        characters.Add(character);
+            //}
+
+            //return RedirectToAction("Index");
+
+            string[] allCharacters = Directory.GetFiles("CharactersData");
+            characters = new List<Human>();
+            foreach (string character in allCharacters)
             {
-                str = readtext.ReadLine();
-            }
-
-            byte[] data = Convert.FromBase64String(str);
-
-            using (MemoryStream ms = new MemoryStream(data))
-            using (BsonDataReader reader = new BsonDataReader(ms))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                var info = serializer.Deserialize<Data>(reader);
-
-                characters = new List<Human>();
-                foreach (var character in info.berserkers)
-                    characters.Add(character);
-                foreach (var character in info.swordMen)
-                    characters.Add(character);
-                foreach (var character in info.tanks)
-                    characters.Add(character);
-                foreach (var character in info.mages)
-                    characters.Add(character);
-                foreach (var character in info.fireWizards)
-                    characters.Add(character);
-                foreach (var character in info.iceWizards)
-                    characters.Add(character);
+                CustomSerializerContainer customSerializerContainer = new CustomSerializerContainer($"{character}");
+                var person = customSerializerContainer.CustomDeserialize();
+                characters.Add((Human)person);
             }
 
             return RedirectToAction("Index");

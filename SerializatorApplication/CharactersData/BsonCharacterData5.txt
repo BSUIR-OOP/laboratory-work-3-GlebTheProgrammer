@@ -1,0 +1,7 @@
+IceWizard
+ElementType:Ice
+Intelligence:19
+DamageType:Magic
+Name:Buckminster Guerra
+Hp:556
+Dmg:38
