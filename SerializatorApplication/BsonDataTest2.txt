@@ -1,0 +1,7 @@
+Tank
+Defence:46
+Strength:44
+DamageType:Physical
+Name:Winter Delaney
+Hp:99
+Dmg:26

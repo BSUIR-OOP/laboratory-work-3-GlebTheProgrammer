@@ -1,0 +1,7 @@
+Berserker
+Vampirism:72
+Strength:27
+DamageType:Physical
+Name:Harper Schmidt
+Hp:49
+Dmg:76

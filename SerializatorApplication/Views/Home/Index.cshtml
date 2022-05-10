@@ -1,8 +1,50 @@
-﻿@{
+﻿@using SerializatorApplication.Characters
+@model List<Human>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>To The Tavern</p>
 </div>
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">Name</th>
+            <th scope="col">Class</th>
+            <th scope="col">Hp</th>
+            <th scope="col">Dmg</th>
+            <th scope="col">Dmg Type</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int index = 0;
+            @foreach (var character in Model)
+            {
+                index++;
+                <tr style="vertical-align: middle;">
+                    <th scope="row">@index</th>
+                    <td>@character.Name</td>
+                    <td>@character.GetType().Name</td>
+                    <td>@character.Hp</td>
+                    <td>@character.Dmg</td>
+                    <td>@character.stats().FirstOrDefault(x => x.Contains("Dmg Type: ")).Substring(10)</td>
+                    <td>
+                        <form asp-controller="Home" asp-action="ChangeCharacterInfo" style="display: contents;">
+                            <button class="btn btn-warning" type="submit" name=index value=@(index-1)>Change</button>
+                        </form>
+                        <form asp-controller="Home" asp-action="DeleteCharacter" style="display: contents;">
+                            <button class="btn btn-danger" type="submit" name=index value=@(index-1)>Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

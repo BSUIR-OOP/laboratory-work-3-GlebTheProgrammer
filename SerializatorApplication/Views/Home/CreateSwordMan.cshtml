@@ -1,0 +1,50 @@
+﻿@using SerializatorApplication.Characters
+@model SwordMan
+
+<h1>Create</h1>
+<hr />
+
+<div class="row">
+    <div class="col-6">
+
+        <div class="card" style="display: inline-block">
+
+            <div class="card-header">
+                <h5>Create a New Sword Man</h5>
+            </div>
+
+            <div class="card-body">
+                <form asp-controller="Home" asp-action="AddSwordMan">
+                    <div class="mb-3">
+                        <label class="form-label">Character Name</label>
+                        <input asp-for=Name type="text" required minlength=3 class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Character Hp</label>
+                        <input asp-for=Hp type="number" required min=1 max=1000 class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Character Damage</label>
+                        <input asp-for=Dmg type="number" required min=1 max=100 class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Character Strength</label>
+                        <input asp-for=Strength type="number" required min=1 max=100 class="form-control" />
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-footer">
+            </div>
+
+        </div>
+
+    </div>
+</div>

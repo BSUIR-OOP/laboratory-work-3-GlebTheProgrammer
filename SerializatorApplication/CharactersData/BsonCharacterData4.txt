@@ -1,0 +1,7 @@
+FireWizard
+ElementType:Fire
+Intelligence:60
+DamageType:Magic
+Name:Shelley Snyder
+Hp:658
+Dmg:82

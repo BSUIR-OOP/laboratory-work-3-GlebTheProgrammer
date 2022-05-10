@@ -1,0 +1,6 @@
+Mage
+Name:Carlos Garcia
+Hp:416
+Dmg:89
+Intelligence:49
+DamageType:Magic
